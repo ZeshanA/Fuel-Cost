@@ -10,6 +10,7 @@ km_in_miles = 0.62137
 def singular(word):
     return word[0:len(word) - 1]
 
+
 def equalise_volume_units(efficiency_volume_unit, cost_volume_unit,
                           efficiency):
     if efficiency_volume_unit != cost_volume_unit:
