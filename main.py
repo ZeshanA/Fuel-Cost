@@ -14,13 +14,13 @@ def input_str(prompt, valid_responses):
             return response
 
 
-def main():
-    # Distance Prompt
+def request_distance_unit():
     distance_unit_prompt = "Enter M for miles or K for kilometres:"
     distance_unit_responses = ["M", "K"]
-    distance_unit = input_str(distance_unit_prompt, distance_unit_responses)
+    return input_str(distance_unit_prompt, distance_unit_responses)
 
-    # Volume Prompts
+
+def request_volume_unit(volume_type, distance_unit):
     efficiency_volume_prompt = "If you use " + units.names[distance_unit] \
                                + " per gallon, enter G. If you use " \
                                + units.names[distance_unit] \
@@ -29,9 +29,25 @@ def main():
                          " in litres enter L."
     volume_responses = ["G", "L"]
 
-    efficiency_volume_unit = input_str(efficiency_volume_prompt,
-                                       volume_responses)
-    cost_volume_unit = input_str(cost_volume_prompt, volume_responses)
+    if volume_type == "efficiency":
+        selected_prompt = efficiency_volume_prompt
+    else:
+        selected_prompt = cost_volume_prompt
+
+    return input_str(selected_prompt, volume_responses)
+
+
+def request_float(type):
+    return float(input(prompt))
+
+
+def main():
+    # Distance Prompt
+    distance_unit = request_distance_unit()
+
+    # Volume Prompts
+    efficiency_volume_unit = request_volume_unit("efficiency", distance_unit)
+    cost_volume_unit = request_volume_unit("cost", distance_unit)
 
     # Cost Prompt
     cost_unit = input("What is your currency?\n")
@@ -42,7 +58,6 @@ def main():
                         + " did you attain?\n"
     distance_prompt = "How many " + units.names[distance_unit] \
                       + " did you travel?\n"
-
     cost_prompt = "In " + cost_unit + ", how much does 1 " + \
                   singular(units.names[cost_volume_unit]) + " of fuel cost?\n"
 
