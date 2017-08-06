@@ -1,4 +1,5 @@
 import units
+from units import singular
 from calc import calculate_cost
 
 
@@ -21,15 +22,16 @@ def main():
 
     # Calculation Questions
     efficiency = int(input("How many " + units.names[distance_unit]
-                           + " per " + units.names[efficiency_volume_unit]
+                           + " per "
+                           + singular(units.names[efficiency_volume_unit])
                            + " did you attain?\n"))
 
     distance = int(input("How many " + units.names[distance_unit]
                          + " did you travel?\n"))
 
     cost_per_unit = float(input("In " + cost_unit
-                                + ", how much does 1 " + units.names[
-                                    cost_volume_unit]
+                                + ", how much does 1 " +
+                                singular(units.names[cost_volume_unit])
                                 + " of fuel cost?\n"))
 
     # If the two volume units are different, we need to
