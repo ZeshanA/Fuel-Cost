@@ -3,44 +3,64 @@ from units import singular
 from calc import calculate_cost
 
 
+def input_str(prompt, valid_responses):
+    while True:
+        response = input(prompt + "\n").capitalize()
+
+        if response not in valid_responses:
+            print("Not a valid response, please try again.")
+            continue
+        else:
+            return response
+
+
 def main():
+    # Distance Prompt
+    distance_unit_prompt = "Enter M for miles or K for kilometres:"
+    distance_unit_responses = ["M", "K"]
+    distance_unit = input_str(distance_unit_prompt, distance_unit_responses)
 
-    # Unit Questions
-    distance_unit = input(
-        "Enter M for miles or K for kilometres:\n").capitalize()
+    # Volume Prompts
+    efficiency_volume_prompt = "If you use " + units.names[distance_unit] \
+                               + " per gallon, enter G. If you use " \
+                               + units.names[distance_unit] \
+                               + " per litre, enter L."
+    cost_volume_prompt = "If you buy fuel in gallons, enter G, if you buy fuel" + \
+                         " in litres enter L."
+    volume_responses = ["G", "L"]
 
-    efficiency_volume_unit = input("If you use " + units.names[distance_unit]
-                                   + " per gallon, enter G. If you use "
-                                   + units.names[distance_unit]
-                                   + " per litre, enter L.\n").capitalize()
+    efficiency_volume_unit = input_str(efficiency_volume_prompt,
+                                       volume_responses)
+    cost_volume_unit = input_str(cost_volume_prompt, volume_responses)
 
-    cost_volume_unit = input(
-        "If you buy fuel in gallons, enter G, if you buy fuel"
-        + " in litres enter L.\n").capitalize()
-
+    # Cost Prompt
     cost_unit = input("What is your currency?\n")
 
-    # Calculation Questions
-    efficiency = float(input("How many " + units.names[distance_unit]
-                           + " per "
-                           + singular(units.names[efficiency_volume_unit])
-                           + " did you attain?\n"))
+    # Calculation Prompts
+    efficiency_prompt = "How many " + units.names[distance_unit] + " per " \
+                        + singular(units.names[efficiency_volume_unit]) \
+                        + " did you attain?\n"
+    distance_prompt = "How many " + units.names[distance_unit] \
+                      + " did you travel?\n"
 
-    distance = float(input("How many " + units.names[distance_unit]
-                         + " did you travel?\n"))
+    cost_prompt = "In " + cost_unit + ", how much does 1 " + \
+                  singular(units.names[cost_volume_unit]) + " of fuel cost?\n"
 
-    cost_per_unit = float(input("In " + cost_unit
-                                + ", how much does 1 " +
-                                singular(units.names[cost_volume_unit])
-                                + " of fuel cost?\n"))
+    efficiency = float(input(efficiency_prompt))
+
+    distance = float(input(distance_prompt))
+
+    cost_per_unit = float(input(cost_prompt))
 
     # If the two volume units are different, we need to
     # convert the efficiency unit to the cost unit
     efficiency = units.equalise_volume_units(efficiency_volume_unit,
                                              cost_volume_unit, efficiency)
 
+    # Printer
     total_cost = calculate_cost(efficiency, distance, cost_per_unit)
     print("\nYour journey cost a total of: ")
     print(str(round(total_cost, 2)) + " " + cost_unit)
+
 
 main()
