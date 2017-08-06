@@ -11,7 +11,7 @@ def singular(word):
     return word[0:len(word) - 1]
 
 
-def equalise_volume_units(efficiency_volume_unit, efficiency):
+def convert_volume(efficiency_volume_unit, efficiency):
     print(efficiency_volume_unit)
     if efficiency_volume_unit == "G":
         return efficiency / gal_in_litres

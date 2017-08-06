@@ -62,7 +62,7 @@ def main():
     cost_per_litre = fetch_price()
 
     # If efficiency volume is in gallons, convert to litres
-    efficiency = units.equalise_volume_units(efficiency_volume_unit, efficiency)
+    efficiency = units.convert_volume(efficiency_volume_unit, efficiency)
 
     # Printer
     total_cost = calculate_cost(efficiency, distance, cost_per_litre)
