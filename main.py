@@ -37,7 +37,7 @@ def request_volume_unit(volume_type, distance_unit):
     return input_str(selected_prompt, volume_responses)
 
 
-def request_float(type):
+def request_float(prompt):
     return float(input(prompt))
 
 
@@ -61,11 +61,11 @@ def main():
     cost_prompt = "In " + cost_unit + ", how much does 1 " + \
                   singular(units.names[cost_volume_unit]) + " of fuel cost?\n"
 
-    efficiency = float(input(efficiency_prompt))
+    efficiency = request_float(efficiency_prompt)
 
-    distance = float(input(distance_prompt))
+    distance = request_float(distance_prompt)
 
-    cost_per_unit = float(input(cost_prompt))
+    cost_per_unit = request_float(cost_prompt)
 
     # If the two volume units are different, we need to
     # convert the efficiency unit to the cost unit
