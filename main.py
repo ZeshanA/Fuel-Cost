@@ -37,7 +37,6 @@ def main():
     efficiency = units.equalise_volume_units(efficiency_volume_unit,
                                              cost_volume_unit, efficiency)
 
-    print(calculate_cost(efficiency, efficiency_volume_unit,
-                         distance, cost_per_unit, cost_volume_unit))
+    print(calculate_cost(efficiency, distance, cost_per_unit))
 
 main()
