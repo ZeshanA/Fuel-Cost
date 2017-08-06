@@ -21,12 +21,12 @@ def main():
     cost_unit = input("What is your currency?\n")
 
     # Calculation Questions
-    efficiency = int(input("How many " + units.names[distance_unit]
+    efficiency = float(input("How many " + units.names[distance_unit]
                            + " per "
                            + singular(units.names[efficiency_volume_unit])
                            + " did you attain?\n"))
 
-    distance = int(input("How many " + units.names[distance_unit]
+    distance = float(input("How many " + units.names[distance_unit]
                          + " did you travel?\n"))
 
     cost_per_unit = float(input("In " + cost_unit
