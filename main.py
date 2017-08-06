@@ -39,6 +39,8 @@ def main():
     efficiency = units.equalise_volume_units(efficiency_volume_unit,
                                              cost_volume_unit, efficiency)
 
-    print(calculate_cost(efficiency, distance, cost_per_unit))
+    total_cost = calculate_cost(efficiency, distance, cost_per_unit)
+    print("\nYour journey cost a total of: ")
+    print(str(round(total_cost, 2)) + " " + cost_unit)
 
 main()
