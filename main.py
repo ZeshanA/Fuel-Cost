@@ -38,7 +38,12 @@ def request_volume_unit(volume_type, distance_unit):
 
 
 def request_float(prompt):
-    return float(input(prompt))
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print("Please enter a number.")
+            continue
 
 
 def main():
