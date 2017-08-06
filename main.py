@@ -40,6 +40,11 @@ def request_float(prompt):
             continue
 
 
+def print_cost(cost):
+    print("\nYour journey cost a total of: ")
+    print("£" + str(round(cost, 2)))
+
+
 def main():
     # Distance Prompt
     distance_unit = request_distance_unit()
@@ -58,16 +63,13 @@ def main():
 
     distance = request_float(distance_prompt)
 
-    # cost_per_litre
     cost_per_litre = fetch_price()
 
     # If efficiency volume is in gallons, convert to litres
     efficiency = units.convert_volume(efficiency_volume_unit, efficiency)
 
-    # Printer
     total_cost = calculate_cost(efficiency, distance, cost_per_litre)
-    print("\nYour journey cost a total of: ")
-    print("£" + str(round(total_cost, 2)))
 
+    print_cost(total_cost)
 
 main()
