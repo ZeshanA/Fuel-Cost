@@ -4,9 +4,9 @@ from calc import calculate_cost
 from fetch import fetch_price
 
 
-def input_str(prompt, valid_responses):
+def input_str(msg, valid_responses):
     while True:
-        response = input(prompt + "\n").capitalize()
+        response = input(msg + "\n").capitalize()
 
         if response not in valid_responses:
             print("Not a valid response, please try again.")
@@ -16,52 +16,52 @@ def input_str(prompt, valid_responses):
 
 
 def request_distance_unit():
-    distance_unit_prompt = "Enter M for miles or K for kilometres:"
+    distance_unit_msg = "Type M for miles or K for kilometres:"
     distance_unit_responses = ["M", "K"]
-    return input_str(distance_unit_prompt, distance_unit_responses)
+    return input_str(distance_unit_msg, distance_unit_responses)
 
 
 def request_volume_unit(distance_unit):
-    efficiency_volume_prompt = "If you use " + units.names[distance_unit] \
-                               + " per gallon, enter G. If you use " \
-                               + units.names[distance_unit] \
-                               + " per litre, enter L."
+    eff_vol_msg = ("For {0} per gallon, type G. For {0} per litre, type L."
+                   .format(units.names[distance_unit]))
+
     volume_responses = ["G", "L"]
 
-    return input_str(efficiency_volume_prompt, volume_responses)
+    return input_str(eff_vol_msg, volume_responses)
 
 
-def request_float(prompt):
+def request_float(msg):
     while True:
         try:
-            return float(input(prompt))
+            return float(input(msg))
         except ValueError:
-            print("Please enter a number.")
+            print("Please type a number.")
             continue
 
 
 def print_cost(cost):
+    cost_string = "£{0}".format(round(cost, 2))
     print("\nYour journey cost a total of: ")
-    print("£" + str(round(cost, 2)))
+    print(cost_string)
 
 
 def main():
-    # Distance Prompt
+    # Distance msg
     distance_unit = request_distance_unit()
 
-    # Volume Prompts
+    # Volume msgs
     efficiency_volume_unit = request_volume_unit(distance_unit)
 
-    # Calculation Prompts
-    efficiency_prompt = "How many " + units.names[distance_unit] + " per " \
-                        + singular(units.names[efficiency_volume_unit]) \
-                        + " did you attain?\n"
-    distance_prompt = "How many " + units.names[distance_unit] \
-                      + " did you travel?\n"
+    # Calculation msgs
+    efficiency_msg = "How many {0} per {1} did you attain?\n".format(
+        units.names[distance_unit],
+        singular(units.names[efficiency_volume_unit]))
+    distance_msg = "How many {0} did you travel?\n".format(
+        units.names[distance_unit])
 
-    efficiency = request_float(efficiency_prompt)
+    efficiency = request_float(efficiency_msg)
 
-    distance = request_float(distance_prompt)
+    distance = request_float(distance_msg)
 
     cost_per_litre = fetch_price()
 
@@ -71,5 +71,6 @@ def main():
     total_cost = calculate_cost(efficiency, distance, cost_per_litre)
 
     print_cost(total_cost)
+
 
 main()
